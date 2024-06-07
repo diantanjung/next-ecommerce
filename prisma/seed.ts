@@ -8,11 +8,12 @@ const prisma = new PrismaClient();
 
 const salt = process.env.SALT_ROUND;
 
-function parseEnvToInt(key: keyof Test) {
+function parseEnvToInt(key: keyof Environment) {
   const env = process.env[key];
   if (typeof env == "string") {
     return parseInt(env);
   }
+  return 0;
 }
 
 async function main() {

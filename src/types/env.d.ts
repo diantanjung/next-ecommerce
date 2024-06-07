@@ -1,12 +1,12 @@
 declare global {
-  interface Test {
+  interface Environment {
     DATABASE_URL?: string;
     SALT_ROUND?: string;
   }
 }
 
 namespace NodeJS {
-  interface ProcessEnv extends Test {}
+  interface ProcessEnv extends Environment {}
 }
 
 export {};
