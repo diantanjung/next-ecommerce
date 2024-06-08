@@ -3,10 +3,10 @@ declare global {
     DATABASE_URL?: string;
     SALT_ROUND?: string;
   }
+  namespace NodeJS {
+    interface ProcessEnv extends Environment {}
+  }
 }
 
-namespace NodeJS {
-  interface ProcessEnv extends Environment {}
-}
 
 export {};
