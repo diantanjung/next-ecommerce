@@ -26,7 +26,7 @@ async function main() {
     where: { email: "admin@user.com" },
     update: {},
     create: {
-      username: "admin",
+      name: "admin",
       email: "admin@user.com",
       password: bcrypt.hashSync(password, salt),
     },
