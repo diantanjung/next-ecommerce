@@ -1,14 +1,12 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Home = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  // const session = await getServerSession(authConfig);
   useEffect(() => {
     if (!session) {
       router.push("/");
