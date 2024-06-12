@@ -1,11 +1,11 @@
-import { NextAuthOptions, User, getServerSession } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
 
-import prisma from "./prisma";
+import prisma from "./db";
 
 export const authConfig: NextAuthOptions = {
   providers: [
