@@ -1,6 +1,3 @@
-import Image from "next/image";
-import googleLogo from "@/public/google.png";
-import githubLogo from "@/public/github.png";
 import {
   CredentialsSignInButton,
   GithubSignInButton,
@@ -10,7 +7,6 @@ import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { CredentialsForm } from "@/components/credentialsForm";
-import { getCsrfToken } from "next-auth/react";
 
 export default async function SignInPage() {
   const session = await getServerSession(authConfig);

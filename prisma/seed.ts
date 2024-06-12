@@ -1,34 +1,16 @@
+import hashPassword from "@/lib/hashPassword";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
-
-// type-guard
-// narrowing
-// https://www.typescriptlang.org/docs/handbook/2/narrowing.html
-
-const salt = process.env.SALT_ROUND;
-
-function parseEnvToInt(key: keyof Environment) {
-  const env = process.env[key];
-  if (typeof env == "string") {
-    return parseInt(env);
-  }
-  return 0;
-}
 
 async function main() {
   const password = "password";
-  const salt_round = parseEnvToInt("SALT_ROUND");
-  console.log("Salt: " + typeof salt_round);
-
-  const salt = bcrypt.genSaltSync(salt_round);
   const admin = await prisma.user.upsert({
     where: { email: "admin@user.com" },
     update: {},
     create: {
       name: "admin",
       email: "admin@user.com",
-      password: bcrypt.hashSync(password, salt),
+      password: hashPassword(password),
     },
   });
   console.log({ admin });
