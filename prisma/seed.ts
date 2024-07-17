@@ -1,42 +1,29 @@
-import hashPassword from "@/lib/hashPassword";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import sampleData from "../src/lib/sample-data"
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
 async function main() {
-  const password = "password";
-  const admin = await prisma.user.upsert({
-    where: { email: "admin@user.com" },
-    update: {},
-    create: {
-      name: "admin",
-      email: "admin@user.com",
-      password: hashPassword(password),
-    },
-  });
-  console.log({ admin });
+  const admin = await prisma.user.createMany({
+    data: sampleData.users,
+  })
+  console.log({ admin })
 
-  const macbook = await prisma.product.create({
-    data: {
-      name: "Macbook Pro",
-      description: "Macbook Pro",
-      category: "Laptop",
-      price: 20000000,
-      stock: 100,
-    },
-  });
+  const macbook = await prisma.product.createMany({
+    data: sampleData.products
+  })
 
-  console.log({ macbook });
+  console.log({ macbook })
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   })
   .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
 
 /**
  * deleting records on database

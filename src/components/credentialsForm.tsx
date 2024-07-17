@@ -4,11 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-interface CredentialsFormProps {
-  csrfToken?: string;
-}
-
-export function CredentialsForm(props: CredentialsFormProps) {
+export function CredentialsForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
