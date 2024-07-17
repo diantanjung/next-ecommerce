@@ -1,10 +1,9 @@
 import prisma from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
 import { NextResponse } from "next/server";
 import hashPassword from "@/lib/hashPassword";
 
 export async function POST(req: Request) {
-    const user = await getCurrentUser();
+    // const user = await getCurrentUser();
 
     try {
 
@@ -12,12 +11,12 @@ export async function POST(req: Request) {
 
         const newPost = await prisma.user.create({
             data: {
-                name, email, password: hashPassword(password)
+                name, email, password: hashPassword(password), role:"user"
             }
         })
         return NextResponse.json({ newPost }, { status: 200 })
 
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ message: 'Something went wrong!' }, { status: 500 })
     }
 }

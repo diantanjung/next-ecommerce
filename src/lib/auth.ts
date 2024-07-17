@@ -6,6 +6,7 @@ import GithubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
 
 import prisma from "./db";
+import { Env } from "./constants";
 
 export const authConfig: NextAuthOptions = {
   providers: [
@@ -36,12 +37,12 @@ export const authConfig: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: Env.GOOGLE_CLIENT_ID as string,
+      clientSecret: Env.GOOGLE_CLIENT_SECRET as string,
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: Env.GITHUB_CLIENT_ID as string,
+      clientSecret: Env.GITHUB_CLIENT_SECRET as string,
     }),
-  ],
+  ], 
 };
