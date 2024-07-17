@@ -1,8 +1,14 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { NextAuthProvider } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+import { cn } from "@/lib/utils"
+import { ReactNode } from "react";
+ 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 export const metadata = {
   title: "Create Next App",
@@ -12,13 +18,15 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " flex flex-row"}>
+      <body className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}>
         <NextAuthProvider>
-          {/* <TwitterNavbar /> */}
           {children}
         </NextAuthProvider>
       </body>
