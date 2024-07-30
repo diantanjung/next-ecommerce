@@ -10,6 +10,12 @@ export const Env = {
   GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  SENDER_EMAIL: process.env.SENDER_EMAIL,
+}
+
+export const signInDefaultValues = {
+  email: '',
+  password: '',
 }
 
   
