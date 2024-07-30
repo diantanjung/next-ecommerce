@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt";
+import { hashSync } from 'bcrypt-ts-edge'
+
 import { Env } from "./constants";
 
 const hashPassword = (password: string) => {
@@ -6,8 +7,7 @@ const hashPassword = (password: string) => {
     if (typeof Env.SALT_ROUND == "string") {
         salt_round = parseInt(Env.SALT_ROUND);
     }
-    const salt = bcrypt.genSaltSync(salt_round);
-    return bcrypt.hashSync(password, salt);
+    return hashSync(password, salt_round);
 }
 
 export default hashPassword;
