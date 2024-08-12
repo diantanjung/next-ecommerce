@@ -4,6 +4,7 @@ import { NextAuthProvider } from "./providers";
 
 import { cn } from "@/lib/utils"
 import { ReactNode } from "react";
+import { Toaster } from "@/components/ui/toaster";
  
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
         )}>
         <NextAuthProvider>
           {children}
+          <Toaster />
         </NextAuthProvider>
       </body>
     </html>

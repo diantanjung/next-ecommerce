@@ -6,7 +6,9 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { getProductBySlug } from '@/lib/actions/product.actions'
 import { Env } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
+import AddToCart from '@/components/shared/product/add-to-cart'
+import { getMyCart } from "@/lib/actions/cart.actions"
+import { round2 } from "@/lib/utils"
 
 export async function generateMetadata({
   params,
@@ -29,10 +31,9 @@ const ProductDetails = async ({
   params: { slug: string }
   searchParams: { page: string; color: string; size: string }
 }) => {
-    
-  const product = await getProductBySlug(slug);
+  const product = await getProductBySlug(slug)
   if (!product) notFound()
-
+  const cart = await getMyCart()
   return (
     <>
       <section>
@@ -47,9 +48,7 @@ const ProductDetails = async ({
                 {product.brand} {product.category}
               </p>
               <h1 className="h3-bold">{product.name}</h1>
-              <p>
-                {product.rating} of 5
-              </p>
+              <p>{product.rating} of 5</p>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="flex gap-3">
@@ -85,7 +84,17 @@ const ProductDetails = async ({
                 </div>
                 {product.stock !== 0 && (
                   <div className=" flex-center">
-                    <Button className="w-full">Add to cart</Button>
+                    <AddToCart
+                      cart={cart}
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: round2(product.price),
+                        qty: 1,
+                        image: product.images![0],
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
