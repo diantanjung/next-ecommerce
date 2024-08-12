@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
+// import { getCurrentUser } from "@/lib/session";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -9,15 +9,15 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const user = await getCurrentUser();
+  // const user = await getCurrentUser();
 
   try {
-    if (!user?.email) {
-      return NextResponse.json(
-        { message: "Not Authenticated!" },
-        { status: 401 }
-      );
-    }
+    // if (!user?.email) {
+    //   return NextResponse.json(
+    //     { message: "Not Authenticated!" },
+    //     { status: 401 }
+    //   );
+    // }
 
     const { name, description, category, price, stock, images, slug, banner, brand, isFeatured, rating } =
       await req.json();
