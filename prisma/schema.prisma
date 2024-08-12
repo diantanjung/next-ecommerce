@@ -14,22 +14,34 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?         @unique
-  password      String
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id              String           @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  email           String?          @unique
+  password        String
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  shippingAddress ShippingAddress?
+  cart            Cart?
+  orders          Order[]
+  paymentMethod   String?
+  role            String           @default("user")
 
-  cart      Cart?
-  orders    Order[]
- 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
+type ShippingAddress {
+  fullName      String
+  streetAddress String
+  city          String
+  postalCode    String
+  country       String
+  lat           Float?
+  lng           Float?
+}
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -43,32 +55,32 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
   userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String
   expires    DateTime
- 
+
   @@unique([identifier, token])
 }
 
@@ -87,26 +99,30 @@ model Product {
   rating      Float
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  CartItem    CartItem[]
   OrderItem   OrderItem[]
 }
 
 model Cart {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String     @unique @db.ObjectId
-  user      User       @relation(fields: [userId], references: [id])
-  items     CartItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String?     @unique @db.ObjectId
+  user          User?       @relation(fields: [userId], references: [id])
+  items         CartItem[]
+  itemsPrice    String
+  shippingPrice String
+  taxPrice      String
+  totalPrice    String
+  sessionCartId String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
-model CartItem {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  cartId    String  @db.ObjectId
-  productId String  @db.ObjectId
-  quantity  Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+type CartItem {
+  productId String
+  name      String
+  slug      String
+  qty       Int
+  image     String
+  price     Float
 }
 
 model Order {
@@ -130,4 +146,3 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
 }
-
