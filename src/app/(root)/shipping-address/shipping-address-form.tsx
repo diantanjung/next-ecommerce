@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { shippingAddressSchema } from '@/lib/validator'
 import { shippingAddressDefaultValues } from '@/lib/constants'
@@ -50,6 +50,11 @@ export default function ShippingAddressForm({
     })
   }
 
+  //todo: add error handling toast
+  const onSubmitError: SubmitErrorHandler<ShippingAddress> = (error) => {
+    console.log(error)
+  }
+
   return (
     <>
       <CheckoutSteps current={1} />
@@ -61,7 +66,7 @@ export default function ShippingAddressForm({
         <Form {...form}>
           <form
             method="post"
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit, onSubmitError)}
             className="space-y-4"
           >
             <div className="flex flex-col gap-5 md:flex-row">
