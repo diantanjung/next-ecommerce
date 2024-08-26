@@ -25,8 +25,8 @@ export const formatError = (error: any): string => {
   }
 }
 
-export const formatNumberWithDecimal = (num: number): string => {
-  const [int, decimal] = num.toString().split('.')
+export const formatNumberWithDecimal = (num: string): string => {
+  const [int, decimal] = num.split('.')
   return decimal ? `${int}.${decimal.padEnd(2, '0')}` : int //12.1 => 12.10
 }
 
