@@ -9,6 +9,24 @@ import { isRedirectError } from 'next/dist/client/components/redirect'
 import { formatError } from '../utils'
 import prisma from "../db"
 
+// GET
+export async function getOrderById(orderId: string) {
+  return await prisma.order.findFirst({
+    where: {
+      id: orderId,
+    },
+    include: {
+      items: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      }
+    },
+  })
+}
+
 // CREATE
 export const createOrder = async () => {
   try {
