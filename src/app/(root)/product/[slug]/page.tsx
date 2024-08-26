@@ -90,7 +90,7 @@ const ProductDetails = async ({
                         productId: product.id,
                         name: product.name,
                         slug: product.slug,
-                        price: round2(product.price),
+                        price: round2(product.price).toString(),
                         qty: 1,
                         image: product.images![0],
                       }}

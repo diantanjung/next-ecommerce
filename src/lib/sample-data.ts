@@ -29,9 +29,9 @@ const sampleData = {
         '/assets/images/sneaker-01-a.webp',
         '/assets/images/sneaker-01-b.webp',
       ],
-      price: 2000000,
+      price: '2000000',
       stock: 100,
-      rating: 4.5
+      rating: '4.5'
     },
     {
       name: 'Sepatu Jalan Jalan',
@@ -45,9 +45,9 @@ const sampleData = {
         '/assets/images/sneaker-02-a.webp',
         '/assets/images/sneaker-02-b.webp',
       ],
-      price: 3000000,
+      price: '3000000',
       stock: 99,
-      rating: 5
+      rating: '5'
     },
     {
       name: 'Sandal Kondangan',
@@ -61,9 +61,9 @@ const sampleData = {
         '/assets/images/sneaker-03-a.webp',
         '/assets/images/sneaker-03-b.webp',
       ],
-      price: 1500000,
+      price: '1500000',
       stock: 12,
-      rating: 3.5
+      rating: '3.5'
     },
     {
       name: 'Kaos Oblong',
@@ -77,9 +77,9 @@ const sampleData = {
         '/assets/images/sneaker-04-a.webp',
         '/assets/images/sneaker-04-b.webp',
       ],
-      price: 1500000,
+      price: '1500000',
       stock: 12,
-      rating: 4.5
+      rating: '4.5'
     },
   ],
 }
