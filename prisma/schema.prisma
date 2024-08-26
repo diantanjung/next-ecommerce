@@ -134,9 +134,9 @@ model Order {
   shippingPrice   String
   taxPrice        String
   totalPrice      String
-  ispaid          Boolean         @default(false)
+  isPaid          Boolean         @default(false)
   paidAt          DateTime?
-  isdelivered     Boolean         @default(false)
+  isDelivered     Boolean         @default(false)
   deliveredAt     DateTime?
   shippingAddress ShippingAddress
   paymentMethod   String
