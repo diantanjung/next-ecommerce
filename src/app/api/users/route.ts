@@ -1,6 +1,7 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
-import hashPassword from "@/lib/hashPassword";
+import { Env } from "@/lib/constants";
+import { hashSync } from "bcrypt-ts-edge";
 
 export async function POST(req: Request) {
     // const user = await getCurrentUser();
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
 
         const newPost = await prisma.user.create({
             data: {
-                name, email, password: hashPassword(password), role:"user"
+                name, email, password: hashSync(password, Env.SALT_ROUND), role:"user"
             }
         })
         return NextResponse.json({ newPost }, { status: 200 })
