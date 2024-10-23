@@ -1,4 +1,5 @@
-import hashPassword from "./hashPassword"
+import { hashSync } from "bcrypt-ts-edge"
+import { Env } from "./constants"
 
 const password = 'password'
 const sampleData = {
@@ -6,13 +7,13 @@ const sampleData = {
     {
       name: 'admin',
       email: 'admin@user.com',
-      password: hashPassword(password),
+      password: hashSync(password, Env.SALT_ROUND),
       role: 'admin',
     },
     {
       name: 'jane',
       email: 'jane@user.com',
-      password: hashPassword(password),
+      password: hashSync(password, Env.SALT_ROUND),
       role: 'user',
     },
   ],
