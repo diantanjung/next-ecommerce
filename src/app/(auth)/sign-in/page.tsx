@@ -14,23 +14,26 @@ import {
 import { Env } from '@/lib/constants'
 
 import CredentialsSignInForm from './credentials-signin-form'
+import { GithubSignInButton, GoogleSignInButton } from "@/components/authButtons"
 
 export const metadata: Metadata = {
   title: `Sign In - ${Env.APP_NAME}`,
 }
 
-export default async function SignIn({
-  searchParams: { callbackUrl },
+export default async function SignIn({ 
+  searchParams: { callbackUrl }, 
 }: {
   searchParams: {
     callbackUrl: string
   }
 }) {
+  
+
   const session = await auth()
   if (session) {
     return redirect(callbackUrl || '/')
   }
-
+ 
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
@@ -49,6 +52,8 @@ export default async function SignIn({
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <GoogleSignInButton />
+          <GithubSignInButton />
           <CredentialsSignInForm />
         </CardContent>
       </Card>
