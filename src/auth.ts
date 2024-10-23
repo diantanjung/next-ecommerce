@@ -4,12 +4,12 @@ import Resend from 'next-auth/providers/resend'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
-import { compareSync } from 'bcrypt-ts-edge'
+import { compareSync, hashSync } from 'bcrypt-ts-edge'
 
 import prisma from './lib/db'
 import { Env } from './lib/constants'
-import { cookies } from "next/headers"
-import { NextResponse } from "next/server"
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -45,17 +45,17 @@ export const authConfig: NextAuthConfig = {
           compareSync(credentials.password as string, dbUser.password)
         ) {
           const { password, createdAt, ...dbUserWithoutPassword } = dbUser
-          return dbUserWithoutPassword as User
+          return dbUserWithoutPassword as unknown as User
         }
 
         return null
       },
     }),
     Resend({
-        name: 'Email',
-        from: `${Env.APP_NAME} <${Env.SENDER_EMAIL}>`,
-        id: 'email',
-      }),
+      name: 'Email',
+      from: `${Env.APP_NAME} <${Env.SENDER_EMAIL}>`,
+      id: 'email',
+    }),
     GoogleProvider({
       clientId: Env.GOOGLE_CLIENT_ID as string,
       clientSecret: Env.GOOGLE_CLIENT_SECRET as string,
@@ -66,6 +66,12 @@ export const authConfig: NextAuthConfig = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === 'google' || account?.provider === 'github') {
+        user.password = hashSync(account.providerAccountId, Env.SALT_ROUND)
+      }
+      return true
+    },
     jwt: async ({ token, user, trigger, session }: any) => {
       if (user) {
         if (trigger === 'signIn' || trigger === 'signUp') {
@@ -74,17 +80,17 @@ export const authConfig: NextAuthConfig = {
           const sessionCartExists = await prisma.cart.findFirst({
             where: { sessionCartId: sessionCartId },
           })
-      
+
           if (sessionCartExists && !sessionCartExists.userId) {
             const userCartExists = await prisma.cart.findFirst({
               where: { userId: user.id },
             })
-            
+
             if (userCartExists) {
               cookies().set('beforeSigninSessionCartId', sessionCartId)
               cookies().set('sessionCartId', userCartExists.sessionCartId)
             } else {
-              prisma.cart.update({
+              await prisma.cart.update({
                 where: { id: sessionCartExists.id },
                 data: { userId: user.id },
               })

@@ -43,6 +43,7 @@ export const addItemToCart = async (data: CartItem) => {
     if (!product) throw new Error('Product not found')
     if (!cart) {
       if (product.stock < 1) throw new Error('Not enough stock')
+        console.log("Creating cart", userId);
       await prisma.cart.create({
         data: {
           userId: userId,

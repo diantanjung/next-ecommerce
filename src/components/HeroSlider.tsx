@@ -1,8 +1,10 @@
+"use client"
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import hero01 from '@/public/assets/images/hero-01.webp'
-import hero02 from '@/public/assets/images/hero-02.webp'
-import hero03 from '@/public/assets/images/hero-03.webp'
+import hero01 from '@/public/assets/images/hero-01.jpg'
+import hero02 from '@/public/assets/images/hero-02.jpg'
+import hero03 from '@/public/assets/images/hero-03.jpg'
+import hero04 from '@/public/assets/images/hero-04.jpg'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -16,21 +18,25 @@ import Image from 'next/image'
 const heroes = [
   {
     title: 'Corte Family',
-    description:
-      'Comfort and versatility sneakers collection.',
+    description: 'Comfort and versatility sneakers collection.',
     image: hero01,
   },
   {
     title: 'Mezzala',
-    description:
-      'The Tempo Controller in the Middle of the Field.',
+    description: 'The Tempo Controller in the Middle of the Field.',
     image: hero02,
   },
   {
-    title: 'Borneo Boots',
+    title: 'Borneo',
     description:
       'Step confidently, blending rugged style with comfort for your urban adventures',
     image: hero03,
+  },
+  {
+    title: 'Cundamani',
+    description:
+      'Step confidently, blending rugged style with comfort for your urban adventures',
+    image: hero04,
   },
 ]
 

@@ -17,6 +17,11 @@ export default function CredentialsSignInForm() {
 
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
+  const error = searchParams.get('error');
+  let errorMessage = "" ;
+  if(error === 'OAuthAccountNotLinked' ) {
+    errorMessage = "The email on the account is already linked";
+  }
 
   const SignInButton = () => {
     const { pending } = useFormStatus()
@@ -55,6 +60,10 @@ export default function CredentialsSignInForm() {
         <div>
           <SignInButton />
         </div>
+
+        {error && (
+          <div className="text-center text-destructive">{errorMessage}</div>
+        )}
 
         {data && !data.success && (
           <div className="text-center text-destructive">{data.message}</div>
