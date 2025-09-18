@@ -1,7 +1,8 @@
 
 # Next Ecommerce
 
-[![Vercel Deployment Status](https://vercel.com/button)](https://mern-real-estate-woad.vercel.app)
+## Live Demo:
+ [![Vercel Deployment Status](https://vercel.com/button)](https://next-ecommerce-nine-kappa.vercel.app/)
 
 ## About Project
 This project is a full stack e-commerce store built with Next.js , Shadcn-ui, Stripe, MongoDB, Prisma, NextAuth, and Vercel.
