@@ -24,10 +24,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+.npm
 
 # local env files
-.env*.local
 .env
+.env*.local
+!.env.example
 
 # vercel
 .vercel
@@ -35,3 +38,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# turbo
+.turbo
+
+# prisma
+prisma/*.db
+prisma/*.db-journal
+prisma/dev.db*
